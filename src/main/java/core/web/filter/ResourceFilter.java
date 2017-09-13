@@ -42,6 +42,8 @@ public class ResourceFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         String path = req.getRequestURI().substring(req.getContextPath().length());
         if (isResourceUrl(path)) {
+            logger.debug("req.getRequestURI() : {}", req.getRequestURI());
+            logger.debug("req.getContextPath() : {}", req.getContextPath());
             logger.debug("path : {}", path);
             defaultRequestDispatcher.forward(request, response);
         } else {
@@ -52,7 +54,8 @@ public class ResourceFilter implements Filter {
     private boolean isResourceUrl(String url) {
         for (String prefix : resourcePrefixs) {
             if (url.startsWith(prefix)) {
-                return true;
+                logger.debug("prefix : {}", prefix);
+               return true;
             }
         }
         return false;
